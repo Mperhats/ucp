@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ucp.dev/schemas/shopping/types/selection.json",
+  "title": "Modifier Selection",
+  "description": "A selected modifier item with nested selections.",
+  "type": "object",
+  "required": [
+    "modifier_group_id",
+    "modifier_item_id"
+  ],
+  "properties": {
+    "modifier_group_id": {
+      "type": "string",
+      "description": "Modifier group identifier for this selection."
+    },
+    "modifier_item_id": {
+      "type": "string",
+      "description": "Modifier item identifier for this selection."
+    },
+    "quantity": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Quantity selected for this modifier item."
+    },
+    "selections": {
+      "type": "array",
+      "items": {
+        "$ref": "selection.json"
+      },
+      "description": "Nested selections for the chosen modifier item."
+    }
+  }
+}

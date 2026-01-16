@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ucp.dev/schemas/shopping/types/modifier_item.json",
+  "title": "Modifier Item",
+  "description": "A selectable modifier option (e.g., extra cheese).",
+  "type": "object",
+  "required": [
+    "id",
+    "title"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Modifier item identifier."
+    },
+    "title": {
+      "type": "string",
+      "description": "Modifier item title."
+    },
+    "description": {
+      "type": "string",
+      "description": "Modifier item description."
+    },
+    "price_delta": {
+      "type": "integer",
+      "description": "Price delta in minor currency units. Can be negative for discounts."
+    },
+    "is_default": {
+      "type": "boolean",
+      "description": "Whether this modifier is selected by default."
+    },
+    "max_quantity": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Maximum quantity allowed for this modifier."
+    },
+    "modifier_groups": {
+      "type": "array",
+      "items": {
+        "$ref": "modifier_group.json"
+      },
+      "description": "Nested modifier groups for this modifier item."
+    }
+  }
+}

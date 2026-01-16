@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ucp.dev/schemas/shopping/types/modifier_group.json",
+  "title": "Modifier Group",
+  "description": "A set of modifier items with selection constraints.",
+  "type": "object",
+  "required": [
+    "id",
+    "title",
+    "items"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Modifier group identifier."
+    },
+    "title": {
+      "type": "string",
+      "description": "Modifier group title."
+    },
+    "description": {
+      "type": "string",
+      "description": "Modifier group description."
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "$ref": "modifier_item.json"
+      },
+      "description": "Modifier items available in this group."
+    },
+    "min_selections": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Minimum selections required."
+    },
+    "max_selections": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Maximum selections allowed."
+    },
+    "multi_select": {
+      "type": "boolean",
+      "description": "Whether multiple selections are allowed."
+    },
+    "is_required": {
+      "type": "boolean",
+      "description": "Whether at least one selection is required."
+    }
+  }
+}
