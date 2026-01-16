@@ -23,6 +23,13 @@
     "parent_id": {
       "type": "string",
       "description": "Parent line item identifier for any nested structures."
+    },
+    "modifier_selections": {
+      "type": "array",
+      "items": {
+        "$ref": "selection.json"
+      },
+      "description": "Selected modifiers for this line item."
     }
   }
 }

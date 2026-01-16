@@ -16,6 +16,13 @@
       "type": "integer",
       "description": "Quantity of the item being purchased.",
       "minimum": 1
+    },
+    "modifier_selections": {
+      "type": "array",
+      "items": {
+        "$ref": "selection.json"
+      },
+      "description": "Selected modifiers for this line item."
     }
   }
 }

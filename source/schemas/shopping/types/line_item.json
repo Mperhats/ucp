@@ -41,6 +41,13 @@
         "create": "omit",
         "update": "optional"
       }
+    },
+    "modifier_selections": {
+      "type": "array",
+      "items": {
+        "$ref": "selection.json"
+      },
+      "description": "Selected modifiers for this line item."
     }
   }
 }

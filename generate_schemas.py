@@ -26,6 +26,8 @@ from source/services/shopping/embedded.json and extension schemas.
 Usage: python generate_schemas.py
 """
 
+from __future__ import annotations
+
 import copy
 import json
 import os

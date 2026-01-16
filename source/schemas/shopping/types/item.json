@@ -29,6 +29,14 @@
       "description": "Product image URI.",
       "format": "uri",
       "ucp_request": "omit"
+    },
+    "modifier_groups": {
+      "type": "array",
+      "items": {
+        "$ref": "modifier_group.json"
+      },
+      "description": "Modifier groups available for this item.",
+      "ucp_request": "omit"
     }
   }
 }

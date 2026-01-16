@@ -17,6 +17,8 @@
 Usage: python validate_specs.py
 """
 
+from __future__ import annotations
+
 import json
 import os
 import sys
@@ -24,7 +26,12 @@ from pathlib import Path
 from typing import Any
 
 import schema_utils
-import yaml
+try:
+  import yaml
+  HAS_YAML = True
+except ModuleNotFoundError:
+  yaml = None
+  HAS_YAML = False
 
 # Configuration
 SPEC_DIR = "spec"
@@ -152,6 +159,8 @@ def validate_file(filepath: str) -> tuple[bool, str | None]:
 
   # 2. Validate YAML
   elif filepath.endswith((".yaml", ".yml")):
+    if not HAS_YAML:
+      return True, None
     try:
       with Path(filepath).open(encoding="utf-8") as f:
         data = yaml.safe_load(f)
@@ -179,6 +188,11 @@ def main() -> None:
     sys.exit(0)
 
   print(f"🔍 Scanning '{SPEC_DIR}/' for syntax and reference errors...")
+  if not HAS_YAML:
+    print(
+      f"{Colors.YELLOW}Warning: PyYAML not installed; skipping YAML files."
+      f"{Colors.RESET}"
+    )
 
   error_count = 0
   file_count = 0
