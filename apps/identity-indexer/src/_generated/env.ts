@@ -29,6 +29,12 @@ export const AppEnvSchema = z.object({
   INDEXER_POLL_INTERVAL_MS: z.coerce.number().int().default(3000),
   INDEXER_FETCH_TIMEOUT_MS: z.coerce.number().int().default(8000),
   INDEXER_BATCH_SIZE: z.coerce.number().int().default(100),
+  // Indexer API
+  INDEXER_API_PORT: z.coerce.number().int().default(4010),
+  INDEXER_AGENT_HOST_BASE: z.string().min(1).default("localhost"),
+  INDEXER_UCP_VERSION: z.string().min(1).default("2026-01-11"),
+  // Optional: proxy for tools that can't resolve subdomains
+  INDEXER_AGENT_PROXY_PORT: z.coerce.number().int().default(4020),
 });
 
 export interface AppEnv extends z.infer<typeof AppEnvSchema> {}

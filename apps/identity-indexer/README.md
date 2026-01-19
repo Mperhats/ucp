@@ -37,6 +37,26 @@ Shovel expects Anvil to be running on the shared `ucp` Docker network (from
 Shovel connects to Postgres via the Docker service name `postgres`. The app
 continues to use `DATABASE_URL` for local access (typically `127.0.0.1`).
 
+## Discovery API
+
+The indexer hosts a discovery API for indexed agents on
+`http://localhost:4010` by default.
+
+```bash
+curl http://localhost:4010/agents
+curl http://localhost:4010/agents/1/agent-uri.json
+curl http://localhost:4010/agents/1/.well-known/ucp
+curl http://1.localhost:4010/.well-known/ucp
+```
+
+If your tooling cannot resolve agent subdomains, run the proxy and set a Host
+header:
+
+```bash
+pnpm run proxy:agents
+curl -H "Host: 1.localhost:4020" http://localhost:4020/.well-known/ucp
+```
+
 ## Commands
 
 ```bash
@@ -51,6 +71,7 @@ pnpm run shovel:logs
 pnpm run generate:db-types
 pnpm run register-agent
 pnpm run verify-agent
+pnpm run proxy:agents
 ```
 
 ## Shovel

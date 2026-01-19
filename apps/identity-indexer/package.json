@@ -14,7 +14,7 @@
     "shovel:logs": "./shovel/shovel.sh logs",
     "generate:db-types": "tsx scripts/generate-db-types.ts",
     "register-agent": "tsx scripts/register_agent.ts",
-    "mock-agents": "tsx scripts/mock-agents.ts",
+    "proxy:agents": "tsx scripts/agent-proxy.ts",
     "verify-agent": "tsx scripts/verify_agent.ts",
     "postinstall": "pnpm run env:generate"
   },
@@ -25,6 +25,7 @@
     "@ucp-js/sdk": "workspace:*",
     "@ucp/erc8004-specs": "workspace:*",
     "@hono/node-server": "catalog:",
+    "@hono/zod-validator": "catalog:",
     "hono": "catalog:",
     "abitype": "catalog:",
     "dotenv": "catalog:",

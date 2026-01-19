@@ -226,3 +226,100 @@ export async function saveCursor(
     )
     .execute();
 }
+
+export interface IndexedAgentRecord {
+  chainId: IdentityEventRow["chain_id"];
+  agentId: string;
+  agentUri: string;
+  agentUriJson: Json | null;
+  registry: IdentityEventRow["registry"];
+  owner: IdentityEventRow["owner"];
+}
+
+export async function listIndexedAgents(
+  db: Kysely<IndexerDb>,
+  limit: number
+): Promise<IndexedAgentRecord[]> {
+  const rows = await db
+    .selectFrom("identity_indexer_agents")
+    .select([
+      "chain_id",
+      "agent_id",
+      "agent_uri",
+      "agent_uri_json",
+      "registry",
+      "owner",
+    ])
+    .orderBy("updated_at", "desc")
+    .limit(limit)
+    .execute();
+  return rows.map((row) => ({
+    chainId: row.chain_id,
+    agentId: String(row.agent_id),
+    agentUri: row.agent_uri,
+    agentUriJson: row.agent_uri_json,
+    registry: row.registry,
+    owner: row.owner,
+  }));
+}
+
+export async function getIndexedAgent(
+  db: Kysely<IndexerDb>,
+  agentId: string
+): Promise<IndexedAgentRecord | null> {
+  const row = await db
+    .selectFrom("identity_indexer_agents")
+    .select([
+      "chain_id",
+      "agent_id",
+      "agent_uri",
+      "agent_uri_json",
+      "registry",
+      "owner",
+    ])
+    .where("agent_id", "=", agentId)
+    .executeTakeFirst();
+  if (!row) return null;
+  return {
+    chainId: row.chain_id,
+    agentId: String(row.agent_id),
+    agentUri: row.agent_uri,
+    agentUriJson: row.agent_uri_json,
+    registry: row.registry,
+    owner: row.owner,
+  };
+}
+
+export async function getIndexedAgentByHost(
+  db: Kysely<IndexerDb>,
+  host: string
+): Promise<IndexedAgentRecord | null> {
+  const httpPrefix = `http://${host}`;
+  const httpsPrefix = `https://${host}`;
+  const row = await db
+    .selectFrom("identity_indexer_agents")
+    .select([
+      "chain_id",
+      "agent_id",
+      "agent_uri",
+      "agent_uri_json",
+      "registry",
+      "owner",
+    ])
+    .where((eb) =>
+      eb.or([
+        eb("agent_uri", "like", `${httpPrefix}%`),
+        eb("agent_uri", "like", `${httpsPrefix}%`),
+      ])
+    )
+    .executeTakeFirst();
+  if (!row) return null;
+  return {
+    chainId: row.chain_id,
+    agentId: String(row.agent_id),
+    agentUri: row.agent_uri,
+    agentUriJson: row.agent_uri_json,
+    registry: row.registry,
+    owner: row.owner,
+  };
+}

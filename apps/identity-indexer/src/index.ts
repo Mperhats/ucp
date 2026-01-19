@@ -1,15 +1,18 @@
 import { createDb, ensureSchema } from "./db.js";
 import { env } from "./env.js";
 import { startIndexer } from "./indexer.js";
+import { startApiServer } from "./server.js";
 
 async function main(): Promise<void> {
   const db = createDb(env);
   await ensureSchema(db);
 
-  const { stop } = await startIndexer(db, env);
+  const { stop: stopIndexer } = await startIndexer(db, env);
+  const { stop: stopApi } = startApiServer(db, env);
 
   const shutdown = async () => {
-    stop();
+    stopIndexer();
+    stopApi();
     await db.destroy();
     process.exit(0);
   };
