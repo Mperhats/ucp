@@ -1,0 +1,30 @@
+{
+  "name": "nodejs",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "generate:models": "bash scripts/generate_models.sh"
+  },
+  "dependencies": {
+    "@hono/node-server": "catalog:",
+    "@hono/zod-validator": "catalog:",
+    "better-sqlite3": "catalog:",
+    "hono": "catalog:",
+    "pino": "catalog:",
+    "pino-http": "catalog:",
+    "pino-http-print": "catalog:",
+    "uuid": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "catalog:",
+    "@types/node": "catalog:",
+    "@types/uuid": "catalog:",
+    "json-schema-to-zod": "catalog:",
+    "quicktype": "catalog:",
+    "tsx": "catalog:",
+    "typescript": "catalog:"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://localprotocol.xyz/schemas/restaurant/types/category.json",
+  "title": "Menu Category",
+  "description": "A menu category grouping items for display.",
+  "type": "object",
+  "required": ["id", "name"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Category identifier."
+    },
+    "name": {
+      "type": "string",
+      "description": "Category display name."
+    },
+    "description": {
+      "type": "string",
+      "description": "Optional category description."
+    },
+    "item_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": [],
+      "description": "Menu item identifiers contained in this category."
+    },
+    "media_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": [],
+      "description": "Media identifiers for this category."
+    }
+  }
+}

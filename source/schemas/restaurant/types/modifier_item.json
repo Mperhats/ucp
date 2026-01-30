@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://localprotocol.xyz/schemas/restaurant/types/modifier_item.json",
+  "title": "Menu Modifier Item",
+  "description": "A purchasable modifier item that can be selected within a modifier group.",
+  "type": "object",
+  "required": ["id", "name", "price"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Modifier item identifier."
+    },
+    "name": {
+      "type": "string",
+      "description": "Modifier item name."
+    },
+    "price": {
+      "$ref": "../../shopping/types/price.json",
+      "description": "Price for this modifier item."
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Business-defined custom data extending the modifier item model."
+    }
+  }
+}

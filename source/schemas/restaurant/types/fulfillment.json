@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://localprotocol.xyz/schemas/restaurant/types/fulfillment.json",
+  "title": "Restaurant Fulfillment",
+  "description": "Container for pickup and on-demand delivery methods in restaurant checkout.",
+  "type": "object",
+  "ucp_shared_request": true,
+  "properties": {
+    "methods": {
+      "type": "array",
+      "description": "Fulfillment method selection for the checkout. Exactly one method must be provided.",
+      "minItems": 1,
+      "maxItems": 1,
+      "items": { "$ref": "fulfillment_method.json" }
+    },
+    "available_methods": {
+      "type": "array",
+      "description": "Availability hints for fulfillment methods.",
+      "items": { "$ref": "fulfillment_available_method.json" },
+      "ucp_request": "omit"
+    }
+  }
+}

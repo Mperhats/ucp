@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://localprotocol.xyz/schemas/restaurant/types/item.json",
+  "title": "Menu Item",
+  "description": "A configurable menu item with modifier groups.",
+  "type": "object",
+  "required": ["id", "name", "price", "media_ids"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Menu item identifier."
+    },
+    "name": {
+      "type": "string",
+      "description": "Menu item name."
+    },
+    "description": {
+      "allOf": [
+        { "$ref": "rich_text.json" }
+      ],
+      "description": "Menu item description in one or more formats. At least one format must be provided."
+    },
+    "price": {
+      "$ref": "../../shopping/types/price.json",
+      "description": "Base price for the menu item."
+    },
+    "media_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Media identifiers for this menu item."
+    },
+    "modifier_group_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": [],
+      "description": "Modifier group identifiers available for this item."
+    },
+    "additional_charges": {
+      "type": "array",
+      "description": "Additional charges applied to orders from this menu.",
+      "items": {
+        "$ref": "menu_additional_charge.json"
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Business-defined custom data extending the menu item model."
+    }
+  }
+}

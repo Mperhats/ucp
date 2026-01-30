@@ -1,0 +1,429 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "UCP Delivery Service",
+    "version": "2026-01-19",
+    "description": "Canonical REST interface for UCP Delivery service. Schema references are logical pointers - actual payload shape is determined by negotiated capabilities.\n\n**Endpoint Resolution:** This spec defines operations only. The base URL MUST be obtained from the delivery service's discovery profile at `/.well-known/ucp` under `services[\"xyz.localprotocol.delivery\"].rest.endpoint`. The `{endpoint}` server variable below is a placeholder for tooling compatibility."
+  },
+  "servers": [
+    {
+      "url": "{endpoint}",
+      "description": "Service endpoint from UCP discovery profile",
+      "variables": {
+        "endpoint": {
+          "default": "https://platform.example.com/ucp",
+          "description": "Obtain from /.well-known/ucp → services[\"xyz.localprotocol.delivery\"].rest.endpoint"
+        }
+      }
+    }
+  ],
+  "paths": {
+    "/delivery-quotes": {
+      "post": {
+        "operationId": "create_delivery_quote",
+        "summary": "Create Delivery Quote",
+        "description": "Create a delivery quote for on-demand delivery.",
+        "parameters": [
+          { "$ref": "#/components/parameters/authorization" },
+          { "$ref": "#/components/parameters/x_api_key" },
+          { "$ref": "#/components/parameters/request_signature" },
+          { "$ref": "#/components/parameters/idempotency_key" },
+          { "$ref": "#/components/parameters/request_id" },
+          { "$ref": "#/components/parameters/user_agent" },
+          { "$ref": "#/components/parameters/content_type" },
+          { "$ref": "#/components/parameters/accept" },
+          { "$ref": "#/components/parameters/accept_language" },
+          { "$ref": "#/components/parameters/accept_encoding" }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/delivery_quote_request" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Delivery quote created",
+            "headers": {
+              "X-Detached-JWT": { "$ref": "#/components/headers/x_detached_jwt" }
+            },
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/delivery_quote_response" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/deliveries": {
+      "post": {
+        "operationId": "create_delivery",
+        "summary": "Create Delivery",
+        "description": "Create a delivery from a delivery request.",
+        "parameters": [
+          { "$ref": "#/components/parameters/authorization" },
+          { "$ref": "#/components/parameters/x_api_key" },
+          { "$ref": "#/components/parameters/request_signature" },
+          { "$ref": "#/components/parameters/idempotency_key" },
+          { "$ref": "#/components/parameters/request_id" },
+          { "$ref": "#/components/parameters/user_agent" },
+          { "$ref": "#/components/parameters/content_type" },
+          { "$ref": "#/components/parameters/accept" },
+          { "$ref": "#/components/parameters/accept_language" },
+          { "$ref": "#/components/parameters/accept_encoding" }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/delivery_request" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Delivery created",
+            "headers": {
+              "X-Detached-JWT": { "$ref": "#/components/headers/x_detached_jwt" }
+            },
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/delivery_response" }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "list_deliveries",
+        "summary": "List Deliveries",
+        "description": "List deliveries with optional filters and pagination.",
+        "parameters": [
+          { "$ref": "#/components/parameters/authorization" },
+          { "$ref": "#/components/parameters/x_api_key" },
+          { "$ref": "#/components/parameters/request_signature" },
+          { "$ref": "#/components/parameters/request_id" },
+          { "$ref": "#/components/parameters/user_agent" },
+          { "$ref": "#/components/parameters/content_type" },
+          { "$ref": "#/components/parameters/accept" },
+          { "$ref": "#/components/parameters/accept_language" },
+          { "$ref": "#/components/parameters/accept_encoding" },
+          { "$ref": "#/components/parameters/delivery_status_filter" },
+          { "$ref": "#/components/parameters/page_limit" },
+          { "$ref": "#/components/parameters/page_cursor" }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deliveries retrieved",
+            "headers": {
+              "X-Detached-JWT": { "$ref": "#/components/headers/x_detached_jwt" }
+            },
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/delivery_list_response" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/deliveries/{id}": {
+      "parameters": [
+        { "$ref": "#/components/parameters/delivery_id_path" }
+      ],
+      "get": {
+        "operationId": "get_delivery",
+        "summary": "Get Delivery",
+        "description": "Get the latest state of a delivery.",
+        "parameters": [
+          { "$ref": "#/components/parameters/authorization" },
+          { "$ref": "#/components/parameters/x_api_key" },
+          { "$ref": "#/components/parameters/request_signature" },
+          { "$ref": "#/components/parameters/request_id" },
+          { "$ref": "#/components/parameters/user_agent" },
+          { "$ref": "#/components/parameters/content_type" },
+          { "$ref": "#/components/parameters/accept" },
+          { "$ref": "#/components/parameters/accept_language" },
+          { "$ref": "#/components/parameters/accept_encoding" }
+        ],
+        "responses": {
+          "200": {
+            "description": "Delivery retrieved",
+            "headers": {
+              "X-Detached-JWT": { "$ref": "#/components/headers/x_detached_jwt" }
+            },
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/delivery_response" }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "operationId": "update_delivery",
+        "summary": "Update Delivery",
+        "description": "Update mutable delivery fields.",
+        "parameters": [
+          { "$ref": "#/components/parameters/authorization" },
+          { "$ref": "#/components/parameters/x_api_key" },
+          { "$ref": "#/components/parameters/request_signature" },
+          { "$ref": "#/components/parameters/idempotency_key" },
+          { "$ref": "#/components/parameters/request_id" },
+          { "$ref": "#/components/parameters/user_agent" },
+          { "$ref": "#/components/parameters/content_type" },
+          { "$ref": "#/components/parameters/accept" },
+          { "$ref": "#/components/parameters/accept_language" },
+          { "$ref": "#/components/parameters/accept_encoding" }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/delivery_update_request" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Delivery updated",
+            "headers": {
+              "X-Detached-JWT": { "$ref": "#/components/headers/x_detached_jwt" }
+            },
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/delivery_response" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/deliveries/{id}/cancel": {
+      "parameters": [
+        { "$ref": "#/components/parameters/delivery_id_path" }
+      ],
+      "post": {
+        "operationId": "cancel_delivery",
+        "summary": "Cancel Delivery",
+        "description": "Cancel a delivery.",
+        "parameters": [
+          { "$ref": "#/components/parameters/authorization" },
+          { "$ref": "#/components/parameters/x_api_key" },
+          { "$ref": "#/components/parameters/request_signature" },
+          { "$ref": "#/components/parameters/request_id" },
+          { "$ref": "#/components/parameters/user_agent" },
+          { "$ref": "#/components/parameters/content_type" },
+          { "$ref": "#/components/parameters/accept" },
+          { "$ref": "#/components/parameters/accept_language" },
+          { "$ref": "#/components/parameters/accept_encoding" }
+        ],
+        "responses": {
+          "200": {
+            "description": "Delivery canceled",
+            "headers": {
+              "X-Detached-JWT": { "$ref": "#/components/headers/x_detached_jwt" }
+            },
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/delivery_response" }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "webhooks": {
+    "deliveryEvent": {
+      "post": {
+        "operationId": "delivery_event_webhook",
+        "summary": "Delivery Event Webhook",
+        "description": "Delivery service sends delivery lifecycle events to the platform's registered webhook URL. The platform provides the webhook URL during partner onboarding.",
+        "parameters": [
+          { "$ref": "#/components/parameters/request_signature" },
+          { "$ref": "#/components/parameters/x_api_key" }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/delivery_event" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Event received and acknowledged",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["ucp"],
+                  "properties": {
+                    "ucp": {
+                      "$ref": "#/components/schemas/ucp"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "parameters": {
+      "delivery_id_path": {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "description": "The unique identifier of the delivery.",
+        "schema": { "type": "string" }
+      },
+      "delivery_status_filter": {
+        "name": "status",
+        "in": "query",
+        "required": false,
+        "description": "Filter deliveries by status.",
+        "schema": {
+          "type": "string",
+          "enum": [
+            "pending",
+            "pickup",
+            "pickup_complete",
+            "dropoff",
+            "delivered",
+            "canceled",
+            "returned",
+            "ongoing"
+          ]
+        }
+      },
+      "page_limit": {
+        "name": "limit",
+        "in": "query",
+        "required": false,
+        "description": "Maximum number of responses to return.",
+        "schema": { "type": "integer", "minimum": 1 }
+      },
+      "page_cursor": {
+        "name": "cursor",
+        "in": "query",
+        "required": false,
+        "description": "Pagination cursor for the next page.",
+        "schema": { "type": "string" }
+      },
+      "authorization": {
+        "name": "Authorization",
+        "in": "header",
+        "required": false,
+        "schema": { "type": "string" },
+        "description": "OAuth token for platform authentication."
+      },
+      "x_api_key": {
+        "name": "X-API-Key",
+        "in": "header",
+        "required": false,
+        "schema": { "type": "string" },
+        "description": "API key allocated to the platform by the delivery service."
+      },
+      "request_signature": {
+        "name": "Request-Signature",
+        "in": "header",
+        "required": true,
+        "schema": { "type": "string" },
+        "description": "Ensures authenticity and integrity of the HTTP message."
+      },
+      "idempotency_key": {
+        "name": "Idempotency-Key",
+        "in": "header",
+        "required": true,
+        "schema": { "type": "string", "format": "uuid" },
+        "description": "Ensures duplicate operations don't happen during retries."
+      },
+      "request_id": {
+        "name": "Request-Id",
+        "in": "header",
+        "required": true,
+        "schema": { "type": "string", "format": "uuid" },
+        "description": "Trace identifier for requests."
+      },
+      "user_agent": {
+        "name": "User-Agent",
+        "in": "header",
+        "required": false,
+        "schema": { "type": "string" },
+        "description": "Identifies the user agent making the call."
+      },
+      "content_type": {
+        "name": "Content-Type",
+        "in": "header",
+        "required": false,
+        "schema": { "type": "string" },
+        "description": "Representation metadata."
+      },
+      "accept": {
+        "name": "Accept",
+        "in": "header",
+        "required": false,
+        "schema": { "type": "string" },
+        "description": "Content negotiation."
+      },
+      "accept_language": {
+        "name": "Accept-Language",
+        "in": "header",
+        "required": false,
+        "schema": { "type": "string" },
+        "description": "Localization preferences."
+      },
+      "accept_encoding": {
+        "name": "Accept-Encoding",
+        "in": "header",
+        "required": false,
+        "schema": { "type": "string" },
+        "description": "Compression preferences."
+      }
+    },
+    "headers": {
+      "x_detached_jwt": {
+        "required": false,
+        "schema": { "type": "string" },
+        "description": "Optional detached JWT signature for the response body."
+      }
+    },
+    "schemas": {
+      "delivery_quote_request": {
+        "$ref": "https://localprotocol.xyz/schemas/delivery/delivery.json#/$defs/quote_request"
+      },
+      "delivery_quote_response": {
+        "$ref": "https://localprotocol.xyz/schemas/delivery/delivery.json#/$defs/quote_response"
+      },
+      "delivery_request": {
+        "$ref": "https://localprotocol.xyz/schemas/delivery/delivery.json#/$defs/delivery_request"
+      },
+      "delivery_response": {
+        "$ref": "https://localprotocol.xyz/schemas/delivery/delivery.json#/$defs/delivery_response"
+      },
+      "delivery_event": {
+        "$ref": "https://localprotocol.xyz/schemas/delivery/types/delivery_event.json"
+      },
+      "delivery_update_request": {
+        "$ref": "https://localprotocol.xyz/schemas/delivery/delivery.json#/$defs/delivery_update_request"
+      },
+      "delivery_list_response": {
+        "$ref": "https://localprotocol.xyz/schemas/delivery/delivery.json#/$defs/delivery_list_response"
+      },
+      "delivery": {
+        "$ref": "https://localprotocol.xyz/schemas/delivery/types/delivery.json"
+      },
+      "ucp": {
+        "$ref": "https://ucp.dev/schemas/ucp.json"
+      }
+    }
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://localprotocol.xyz/schemas/delivery/types/delivery_inputs.json",
+  "title": "Delivery Inputs",
+  "description": "Inputs required to create a delivery or to receive a quote for a delivery.",
+  "type": "object",
+  "ucp_shared_request": true,
+  "required": ["pickup", "dropoff", "items_value"],
+  "properties": {
+    "pickup": {
+      "$ref": "../../shopping/types/retail_location.json",
+      "description": "Pickup location."
+    },
+    "dropoff": {
+      "$ref": "../../shopping/types/shipping_destination.json",
+      "description": "Dropoff location."
+    },
+    "pickup_ready_dt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "RFC 3339 timestamp when pickup can begin."
+    },
+    "pickup_deadline_dt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "RFC 3339 timestamp after which pickup is no longer valid."
+    },
+    "dropoff_ready_dt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "RFC 3339 timestamp when dropoff can begin."
+    },
+    "dropoff_deadline_dt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "RFC 3339 timestamp after which dropoff is no longer valid."
+    },
+    "items_value": {
+      "$ref": "../../shopping/types/price.json",
+      "description": "Total value of items."
+    },
+    "external_store_id": {
+      "type": "string",
+      "description": "Optional store identifier for routing or pricing."
+    },
+    "external_id": {
+      "type": "string",
+      "description": "Optional external identifier for idempotency or correlation."
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://localprotocol.xyz/schemas/restaurant/types/pickup_event.json",
+  "title": "Restaurant Pickup Event",
+  "description": "Pickup lifecycle event payload for restaurant orders fulfilled via pickup.",
+  "type": "object",
+  "required": ["event_id", "event_type", "created_at"],
+  "properties": {
+    "event_id": {
+      "type": "string",
+      "description": "Unique pickup event identifier."
+    },
+    "event_type": {
+      "type": "string",
+      "enum": ["ready", "arrived", "completed", "canceled"],
+      "description": "Pickup lifecycle event type aligned with pickup status values."
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Event creation timestamp in RFC 3339 format."
+    },
+    "description": {
+      "type": "string",
+      "description": "Human-readable description of the pickup status."
+    }
+  }
+}

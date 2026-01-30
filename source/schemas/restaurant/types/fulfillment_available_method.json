@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://localprotocol.xyz/schemas/restaurant/types/fulfillment_available_method.json",
+  "title": "Restaurant Fulfillment Available Method",
+  "description": "Availability hint for pickup or on-demand delivery in restaurant checkout.",
+  "type": "object",
+  "ucp_shared_request": true,
+  "required": ["type"],
+  "additionalProperties": true,
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": ["pickup", "on_demand_delivery"],
+      "description": "Fulfillment method type this availability applies to.",
+      "ucp_request": "omit"
+    },
+    "fulfillable_on": {
+      "type": ["string", "null"],
+      "description": "'now' for immediate availability, or ISO 8601 date for future availability.",
+      "ucp_request": "omit"
+    },
+    "description": {
+      "type": "string",
+      "description": "Human-readable availability info.",
+      "ucp_request": "omit"
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "module": "CommonJS",
+    "outDir": "dist/cjs",
+    "declaration": false,
+    "declarationMap": false,
+    "moduleResolution": "Node",
+    "verbatimModuleSyntax": false
+  },
+  "include": ["index.ts", "generated/**/*.ts"],
+  "exclude": ["node_modules", "dist"]
+}

@@ -1,0 +1,18 @@
+{
+  "currency": "USD",
+  "items": [
+    {
+      "id": "bouquet_roses",
+      "title": "Red Rose",
+      "price": 3500
+    }
+  ],
+  "out_of_stock_item": {
+    "id": "gardenias",
+    "title": "Gardenias"
+  },
+  "non_existent_item": {
+    "id": "pink_wumpus",
+    "title": "Pink Wumpus"
+  }
+}

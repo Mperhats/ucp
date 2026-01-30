@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://localprotocol.xyz/schemas/restaurant/order.json",
+  "name": "xyz.localprotocol.restaurant.order",
+  "version": "2026-01-21",
+  "title": "Restaurant Order",
+  "description": "Restaurant order schema with menu modifier selections and pickup/delivery fulfillment events.",
+  "$defs": {
+    "platform_config": {
+      "title": "Platform Order Config",
+      "description": "Platform's order capability configuration.",
+      "type": "object",
+      "required": ["webhook_url"],
+      "properties": {
+        "webhook_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL where merchant sends order lifecycle events (webhooks)."
+        }
+      }
+    }
+  },
+  "type": "object",
+  "required": [
+    "ucp",
+    "id",
+    "checkout_id",
+    "permalink_url",
+    "line_items",
+    "fulfillment",
+    "totals"
+  ],
+  "properties": {
+    "ucp": {
+      "$ref": "../ucp.json#/$defs/response_order"
+    },
+    "id": {
+      "type": "string",
+      "description": "Unique order identifier."
+    },
+    "checkout_id": {
+      "type": "string",
+      "description": "Associated checkout ID for reconciliation."
+    },
+    "permalink_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Permalink to access the order on merchant site."
+    },
+    "line_items": {
+      "type": "array",
+      "items": {
+        "$ref": "types/order_line_item.json"
+      },
+      "description": "Immutable line items — source of truth for what was ordered."
+    },
+    "fulfillment": {
+      "type": "object",
+      "required": ["type", "status"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["pickup", "on_demand_delivery"],
+          "description": "Selected fulfillment type for this order."
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "ready",
+            "arrived",
+            "completed",
+            "canceled",
+            "pending",
+            "pickup",
+            "pickup_complete",
+            "dropoff",
+            "delivered",
+            "returned",
+            "ongoing"
+          ],
+          "description": "Derived fulfillment status from the latest pickup or delivery event log."
+        },
+        "events": {
+          "type": "array",
+          "items": {
+            "$ref": "types/fulfillment_event.json"
+          },
+          "description": "Append-only fulfillment event logc aligned to the selected fulfillment type."
+        }
+      },
+      "description": "Fulfillment lifecycle events for pickup or on-demand delivery."
+    },
+    "adjustments": {
+      "type": "array",
+      "items": {
+        "$ref": "../shopping/types/adjustment.json"
+      },
+      "description": "Append-only event log of money movements (refunds, returns, credits, disputes, cancellations, etc.) that exist independently of fulfillment."
+    },
+    "totals": {
+      "type": "array",
+      "items": {
+        "$ref": "types/total.json"
+      },
+      "description": "Different totals for the order."
+    }
+  }
+}

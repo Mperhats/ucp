@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ucp.dev/handlers/localprotocol_auth_capture/config.json",
+  "title": "Localprotocol Commerce Auth/Capture Handler Config",
+  "description": "Configuration for the Localprotocol restaurant auth/capture escrow handler.",
+  "type": "object",
+  "required": [
+    "chain_id",
+    "escrow_contract",
+    "merchant_payout_address",
+    "token_collectors",
+    "authorization_expiry_seconds"
+  ],
+  "properties": {
+    "chain_id": {
+      "type": "integer",
+      "description": "EVM chain ID (e.g., 8453 for Base)."
+    },
+    "escrow_contract": {
+      "type": "string",
+      "description": "AuthCaptureEscrow contract address."
+    },
+    "merchant_payout_address": {
+      "type": "string",
+      "description": "Merchant payout address for captured funds."
+    },
+    "token_collectors": {
+      "type": "array",
+      "description": "Authorization mechanisms supported by the handler.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "authorization_expiry_seconds": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Authorization expiration window in seconds."
+    },
+    "environment": {
+      "type": "string",
+      "enum": [
+        "sandbox",
+        "production"
+      ],
+      "description": "Execution environment for the handler."
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ucp.dev/erc8004/schemas/types/endpoint.json",
+  "title": "ERC-8004 Agent Endpoint",
+  "description": "Endpoint entry in the ERC-8004 agentURI registration file.",
+  "type": "object",
+  "required": ["name", "endpoint"],
+  "additionalProperties": false,
+  "properties": {
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Endpoint name (e.g., web, A2A, MCP, UCP)."
+    },
+    "endpoint": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Endpoint URL or identifier."
+    },
+    "version": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Optional endpoint version."
+    },
+    "capabilities": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "description": "Optional capabilities list (protocol-specific)."
+    },
+    "skills": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "domains": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    }
+  }
+}

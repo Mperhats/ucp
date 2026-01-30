@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ucp.dev/handlers/localprotocol_auth_capture/instrument.json",
+  "title": "Localprotocol Commerce Auth/Capture Instrument",
+  "description": "Payment instrument for Localprotocol restaurant auth/capture escrow flows.",
+  "allOf": [
+    {
+      "$ref": "../../schemas/shopping/types/payment_instrument_base.json"
+    },
+    {
+      "type": "object",
+      "required": [
+        "type",
+        "authorization_id",
+        "authorize_tx_hash",
+        "chain_id",
+        "escrow_contract"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "localprotocol_auth_capture",
+          "description": "Indicates this is a Localprotocol restaurant auth/capture instrument."
+        },
+        "authorization_id": {
+          "type": "string",
+          "description": "Authorization identifier returned by the escrow protocol."
+        },
+        "authorize_tx_hash": {
+          "type": "string",
+          "description": "Transaction hash for the authorization onchain."
+        },
+        "chain_id": {
+          "type": "integer",
+          "description": "EVM chain ID where the authorization was created."
+        },
+        "escrow_contract": {
+          "type": "string",
+          "description": "AuthCaptureEscrow contract address."
+        },
+        "merchant_payout_address": {
+          "type": "string",
+          "description": "Merchant payout address used for capture."
+        }
+      }
+    }
+  ]
+}

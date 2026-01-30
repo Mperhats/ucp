@@ -31,6 +31,10 @@ within the UCP.
 
 {{ auto_generate_schema_reference('.', 'reference', include_capability=False) }}
 
+## Handler Schemas
+
+{{ handler_schema_reference('spec/source/handlers', 'reference') }}
+
 ## UCP Metadata
 
 The following schemas define the structure of UCP metadata used in discovery

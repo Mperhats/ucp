@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://localprotocol.xyz/schemas/restaurant/types/menu.json",
+  "title": "Menu",
+  "description": "A menu containing categories and fulfillment configuration.",
+  "type": "object",
+  "required": ["id", "name"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Menu identifier."
+    },
+    "name": {
+      "type": "string",
+      "description": "Menu name."
+    },
+    "category_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": [],
+      "description": "Category identifiers included in this menu."
+    },
+    "fulfillment_modes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": [],
+      "description": "Fulfillment modes supported by this menu."
+    },
+    "description": {
+      "type": "string",
+      "description": "Menu description."
+    },
+    "hours": {
+      "type": "object",
+      "description": "Menu availability hours.",
+      "properties": {
+        "intervals": {
+          "type": "array",
+          "items": {
+            "$ref": "menu_hours_interval.json"
+          }
+        }
+      }
+    },
+    "additional_charges": {
+      "type": "array",
+      "description": "Additional charges applied to orders from this menu.",
+      "items": {
+        "$ref": "menu_additional_charge.json"
+      }
+    }
+  }
+}

@@ -24,6 +24,8 @@ downloads/
 eggs/
 .eggs/
 lib/
+!contracts/erc8004/lib/
+!contracts/erc8004/lib/openzeppelin-contracts/
 lib64/
 parts/
 sdist/
@@ -112,9 +114,15 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-.env
+**/.env*
+!**/.env.example
+!**/.env.local.example
+!**/.env.template
+.env.docker
+.env.*.local
 .venv
 .venv*
+.ucp/
 env/
 venv/
 ENV/
@@ -162,6 +170,9 @@ tmp*
 npm-debug.log
 yarn-error.log
 
+# uv
+**/uv.lock.bak
+
 # IDEs and editors
 .idea/
 .project
@@ -186,6 +197,10 @@ testem.log
 Thumbs.db
 
 .logs/
+
+# Shovel generated config
+/apps/identity-indexer/shovel/generated/*.json
+
 
 ### Gradle ###
 .gradle
@@ -213,3 +228,4 @@ gradle-app.setting
 ### Gradle Patch ###
 # Java heap dump
 *.hprof
+/ai_docs

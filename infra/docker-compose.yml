@@ -1,0 +1,46 @@
+services:
+  anvil:
+    image: ${FOUNDRY_IMAGE}
+    ports:
+      - "${ANVIL_PORT}:8545"
+    entrypoint: ["anvil"]
+    command:
+      - --host
+      - "${ANVIL_HOST}"
+      - --port
+      - "${ANVIL_PORT}"
+      - --chain-id
+      - "${CHAIN_ID}"
+      - --mnemonic
+      - "${ANVIL_MNEMONIC}"
+      - --balance
+      - "${ANVIL_BALANCE}"
+      - --block-time
+      - "${ANVIL_BLOCK_TIME}"
+      - --gas-limit
+      - "${ANVIL_GAS_LIMIT}"
+    healthcheck:
+      test: ["CMD", "cast", "block-number", "--rpc-url", "http://127.0.0.1:${ANVIL_PORT}"]
+      interval: 1s
+      timeout: 1s
+      retries: 30
+    networks:
+      - ucp
+
+  foundry:
+    image: ${FOUNDRY_IMAGE}
+    working_dir: /repo/contracts
+    volumes:
+      - ..:/repo
+    entrypoint: ["bash", "-lc"]
+    command: "sleep infinity"
+    depends_on:
+      anvil:
+        condition: service_healthy
+    networks:
+      - ucp
+
+networks:
+  ucp:
+    name: ucp
+

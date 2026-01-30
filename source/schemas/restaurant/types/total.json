@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://localprotocol.xyz/schemas/restaurant/types/total.json",
+  "title": "Restaurant Total",
+  "type": "object",
+  "required": [
+    "type",
+    "amount"
+  ],
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": [
+        "items_discount",
+        "subtotal",
+        "discount",
+        "fulfillment",
+        "tax",
+        "fee",
+        "tip",
+        "total"
+      ],
+      "description": "Type of total categorization.",
+      "ucp_request": "omit"
+    },
+    "display_text": {
+      "type": "string",
+      "description": "Text to display against the amount. Should reflect appropriate method (e.g., 'Delivery', 'Tip').",
+      "ucp_request": "omit"
+    },
+    "amount": {
+      "type": "integer",
+      "description": "If type == total, sums subtotal - discount + fulfillment + tax + fee + tip. Should be >= 0. Amount in minor (cents) currency units.",
+      "minimum": 0,
+      "ucp_request": "omit"
+    }
+  }
+}

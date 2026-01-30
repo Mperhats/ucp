@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://localprotocol.xyz/schemas/restaurant/types/order_line_item.json",
+  "title": "Restaurant Order Line Item",
+  "description": "Order line item snapshot.",
+  "type": "object",
+  "required": ["id", "item", "quantity", "totals"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Line item identifier."
+    },
+    "item": {
+      "$ref": "order_item.json",
+      "description": "Order-time item snapshot (menu item or modifier item)."
+    },
+    "quantity": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Quantity of the item being ordered."
+    },
+    "totals": {
+      "type": "array",
+      "items": {
+        "$ref": "total.json"
+      },
+      "description": "Line item totals breakdown."
+    },
+    "parent_id": {
+      "type": "string",
+      "description": "Parent reference identifier for nested structures (e.g., bundles or grouped items)."
+    }
+  }
+}

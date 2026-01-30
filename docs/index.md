@@ -186,7 +186,7 @@ image: assets/banner.png
           <div class="pane-eyebrow">SEE IT IN ACTION</div>
           <h3>Checkout</h3>
           <p>Support complex cart logic, dynamic pricing, tax calculations, and more across millions of businesses through unified checkout sessions.</p>
-          <a href="specification/checkout-rest/" class="learn-more-btn">Learn more</a>
+          <a href="specification/shopping/checkout-rest/" class="learn-more-btn">Learn more</a>
         </div>
         <div class="pane-visuals">
           <div class="image-container">
@@ -314,7 +314,7 @@ image: assets/banner.png
           <div class="pane-eyebrow">SEE IT IN ACTION</div>
           <h3>Order</h3>
           <p>From purchase confirmation to delivery. Real-time webhooks power status updates, shipment tracking, and return processing across every channel.</p>
-          <a href="specification/order/" class="learn-more-btn">Learn more</a>
+          <a href="specification/shopping/order/" class="learn-more-btn">Learn more</a>
         </div>
         <div class="pane-visuals">
           <div class="image-container">
@@ -408,7 +408,7 @@ image: assets/banner.png
       <p>
         Integrate and negotiate directly with a seller's checkout API to power native UI and workflows for your platform.
       </p>
-      <a href="specification/checkout-rest/" class="promo-button">See how it works</a>
+      <a href="specification/shopping/checkout-rest/" class="promo-button">See how it works</a>
     </div>
 
     <div class="two-column-promo-item">

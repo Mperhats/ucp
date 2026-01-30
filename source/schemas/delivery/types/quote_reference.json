@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://localprotocol.xyz/schemas/delivery/types/quote_reference.json",
+  "title": "Delivery Quote Reference",
+  "description": "Reference to a previously created delivery quote.",
+  "type": "object",
+  "required": ["quote_id"],
+  "properties": {
+    "quote_id": {
+      "type": "string",
+      "description": "Delivery quote identifier."
+    },
+    "expires_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Quote expiration timestamp."
+    }
+  }
+}

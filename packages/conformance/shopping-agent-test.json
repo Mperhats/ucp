@@ -1,0 +1,16 @@
+{
+  "ucp": {
+    "version": "2026-01-11",
+    "capabilities": [
+      {
+        "name": "dev.ucp.shopping.order",
+        "version": "2026-01-11",
+        "spec": "https://ucp.dev/specs/shopping/order",
+        "schema": "https://ucp.dev/schemas/shopping/order.json",
+        "config": {
+          "webhook_url": "http://localhost:{webhook_port}/webhooks/partners/test_partner/events/order"
+        }
+      }
+    ]
+  }
+}
