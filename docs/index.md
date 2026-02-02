@@ -186,7 +186,7 @@ image: assets/banner.png
           <div class="pane-eyebrow">SEE IT IN ACTION</div>
           <h3>Checkout</h3>
           <p>Support complex cart logic, dynamic pricing, tax calculations, and more across millions of businesses through unified checkout sessions.</p>
-          <a href="specification/checkout-rest/" class="learn-more-btn">Learn more</a>
+          <a href="specification/shopping/checkout-rest/" class="learn-more-btn">Learn more</a>
         </div>
         <div class="pane-visuals">
           <div class="image-container">
@@ -314,7 +314,7 @@ image: assets/banner.png
           <div class="pane-eyebrow">SEE IT IN ACTION</div>
           <h3>Order</h3>
           <p>From purchase confirmation to delivery. Real-time webhooks power status updates, shipment tracking, and return processing across every channel.</p>
-          <a href="specification/order/" class="learn-more-btn">Learn more</a>
+          <a href="specification/shopping/order/" class="learn-more-btn">Learn more</a>
         </div>
         <div class="pane-visuals">
           <div class="image-container">
@@ -408,7 +408,7 @@ image: assets/banner.png
       <p>
         Integrate and negotiate directly with a seller's checkout API to power native UI and workflows for your platform.
       </p>
-      <a href="specification/checkout-rest/" class="promo-button">See how it works</a>
+      <a href="specification/shopping/checkout-rest/" class="promo-button">See how it works</a>
     </div>
 
     <div class="two-column-promo-item">
@@ -496,6 +496,10 @@ image: assets/banner.png
         <span>Best Buy</span>
       </div>
       <div class="partner-logo">
+        <img src="assets/partner/endorsed/Block.svg" alt="Block" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+        <span>Block</span>
+      </div>
+      <div class="partner-logo">
         <img src="assets/partner/endorsed/Carrefour.svg" alt="Carrefour" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
         <span>Carrefour</span>
       </div>
@@ -508,12 +512,20 @@ image: assets/banner.png
         <span>Commerce</span>
       </div>
       <div class="partner-logo">
+        <img src="assets/partner/endorsed/Fiserv.svg" alt="Fiserv" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+        <span>Fiserv</span>
+      </div>
+      <div class="partner-logo">
         <img src="assets/partner/endorsed/Flipkart.svg" alt="Flipkart partner company logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
         <span>Flipkart</span>
       </div>
       <div class="partner-logo">
         <img src="assets/partner/endorsed/Gap.svg" alt="Gap" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
         <span>Gap</span>
+      </div>
+      <div class="partner-logo">
+        <img src="assets/partner/endorsed/Klarna.svg" alt="Klarna" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+        <span>Klarna</span>
       </div>
       <div class="partner-logo">
         <img src="assets/partner/endorsed/Kroger.svg" alt="Kroger" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
@@ -548,6 +560,10 @@ image: assets/banner.png
         <span>Shopee</span>
       </div>
       <div class="partner-logo">
+        <img src="assets/partner/endorsed/Splitit.svg" alt="Splitit" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+        <span>Splitit</span>
+      </div>
+      <div class="partner-logo">
         <img src="assets/partner/endorsed/Stripe.svg" alt="Stripe" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
         <span>Stripe</span>
       </div>
@@ -559,7 +575,7 @@ image: assets/banner.png
         <img src="assets/partner/endorsed/Ulta.svg" alt="Ulta" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
         <span>Ulta</span>
       </div>
-    <div class="partner-logo">
+      <div class="partner-logo">
         <img src="assets/partner/endorsed/Visa.svg" alt="Visa" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
         <span>Visa</span>
       </div>
@@ -588,6 +604,10 @@ image: assets/banner.png
         <span>Best Buy</span>
       </div>
       <div class="partner-logo">
+        <img src="assets/partner/endorsed/Block.svg" alt="Block" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+        <span>Block</span>
+      </div>
+      <div class="partner-logo">
         <img src="assets/partner/endorsed/Carrefour.svg" alt="Carrefour" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
         <span>Carrefour</span>
       </div>
@@ -600,12 +620,20 @@ image: assets/banner.png
         <span>Commerce</span>
       </div>
       <div class="partner-logo">
+        <img src="assets/partner/endorsed/Fiserv.svg" alt="Fiserv" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+        <span>Fiserv</span>
+      </div>
+      <div class="partner-logo">
         <img src="assets/partner/endorsed/Flipkart.svg" alt="Flipkart" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
         <span>Flipkart</span>
       </div>
       <div class="partner-logo">
         <img src="assets/partner/endorsed/Gap.svg" alt="Gap" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
         <span>Gap</span>
+      </div>
+      <div class="partner-logo">
+        <img src="assets/partner/endorsed/Klarna.svg" alt="Klarna" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+        <span>Klarna</span>
       </div>
       <div class="partner-logo">
         <img src="assets/partner/endorsed/Kroger.svg" alt="Kroger" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
@@ -640,6 +668,10 @@ image: assets/banner.png
         <span>Shopee</span>
       </div>
       <div class="partner-logo">
+        <img src="assets/partner/endorsed/Splitit.svg" alt="Splitit" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+        <span>Splitit</span>
+      </div>
+      <div class="partner-logo">
         <img src="assets/partner/endorsed/Stripe.svg" alt="Stripe" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
         <span>Stripe</span>
       </div>
@@ -651,7 +683,7 @@ image: assets/banner.png
         <img src="assets/partner/endorsed/Ulta.svg" alt="Ulta" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
         <span>Ulta</span>
       </div>
-    <div class="partner-logo">
+      <div class="partner-logo">
         <img src="assets/partner/endorsed/Visa.svg" alt="Visa" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
         <span>Visa</span>
       </div>

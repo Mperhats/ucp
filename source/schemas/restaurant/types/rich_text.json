@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://localprotocol.xyz/schemas/restaurant/types/rich_text.json",
+  "title": "Rich Text",
+  "description": "Text content in one or more formats.",
+  "type": "object",
+  "properties": {
+    "plain": {
+      "type": "string",
+      "description": "Plain text."
+    },
+    "html": {
+      "type": "string",
+      "description": "HTML-formatted text."
+    },
+    "markdown": {
+      "type": "string",
+      "description": "Markdown-formatted text."
+    }
+  },
+  "minProperties": 1
+}

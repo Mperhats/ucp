@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://localprotocol.xyz/schemas/delivery/types/delivery.json",
+  "title": "Delivery",
+  "description": "Standalone delivery resource.",
+  "type": "object",
+  "required": ["id", "status"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique delivery identifier."
+    },
+    "status": {
+      "type": "string",
+      "description": "Delivery status.",
+      "enum": [
+        "pending",
+        "pickup",
+        "pickup_complete",
+        "dropoff",
+        "delivered",
+        "canceled",
+        "returned",
+        "ongoing"
+      ]
+    },
+    "quote_id": {
+      "type": "string",
+      "description": "Quote identifier used to create this delivery."
+    },
+    "delivery_request": {
+      "$ref": "../delivery.json#/$defs/delivery_request",
+      "description": "Original delivery request data."
+    },
+    "tracking_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Tracking URL for delivery progress."
+    },
+    "courier": {
+      "$ref": "courier.json",
+      "description": "Assigned courier details."
+    },
+    "courier_imminent": {
+      "type": "boolean",
+      "description": "True when the courier is imminent/near pickup."
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Delivery creation timestamp."
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Delivery update timestamp."
+    }
+  }
+}

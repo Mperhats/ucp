@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://localprotocol.xyz/schemas/delivery/types/courier.json",
+  "title": "Courier",
+  "description": "Assigned courier details.",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Courier name."
+    },
+    "phone_number": {
+      "type": "string",
+      "description": "Courier phone number."
+    },
+    "vehicle_type": {
+      "type": "string",
+      "description": "Courier vehicle type (e.g., car, bike, scooter)."
+    },
+    "location": {
+      "$ref": "location.json",
+      "description": "Courier live location."
+    }
+  }
+}

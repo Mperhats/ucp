@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://localprotocol.xyz/schemas/restaurant/types/line_item.json",
+  "title": "Restaurant Line Item",
+  "description": "Checkout line item with menu modifier selections, including nested selections via modifier_selection links.",
+  "type": "object",
+  "required": ["id", "item", "quantity", "totals"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "ucp_request": {
+        "create": "omit",
+        "update": "optional"
+      }
+    },
+    "item": {
+      "$ref": "item.json",
+      "description": "Menu item snapshot for checkout."
+    },
+    "modifier_selections": {
+      "type": "array",
+      "items": {
+        "$ref": "modifier_selection.json"
+      },
+      "description": "Selected menu modifiers for this line item. Use parent_selection_id/path to represent nested modifier groups."
+    },
+    "quantity": {
+      "type": "integer",
+      "description": "Quantity of the item being purchased.",
+      "minimum": 1
+    },
+    "totals": {
+      "type": "array",
+      "items": {
+        "$ref": "total.json"
+      },
+      "description": "Line item totals breakdown.",
+      "ucp_request": "omit"
+    },
+    "parent_id": {
+      "type": "string",
+      "description": "Parent line item identifier for any nested structures.",
+      "ucp_request": {
+        "create": "omit",
+        "update": "optional"
+      }
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://localprotocol.xyz/schemas/restaurant/types/modifier_selection.json",
+  "title": "Menu Modifier Selection",
+  "description": "Flat modifier selection entry for a modifier group. Use parent_selection_id/path to model nested selections.",
+  "type": "object",
+  "required": ["id", "modifier_group_id", "item_id"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Selection identifier for linking nested modifier selections."
+    },
+    "modifier_group_id": {
+      "type": "string",
+      "description": "Modifier group identifier for this selection."
+    },
+    "item_id": {
+      "type": "string",
+      "description": "Selected modifier item identifier."
+    },
+    "quantity": {
+      "type": "integer",
+      "minimum": 1,
+      "default": 1,
+      "description": "Selected quantity for this modifier item."
+    },
+    "parent_selection_id": {
+      "type": "string",
+      "description": "Immediate parent selection identifier that introduced this group (for nested groups)."
+    },
+    "parent_selection_path": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Normalized path of ancestor selection identifiers from root to immediate parent."
+    }
+  }
+}

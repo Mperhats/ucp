@@ -1,0 +1,39 @@
+{
+  "name": "@ucp/erc8004-specs",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js"
+    }
+  },
+  "scripts": {
+    "build": "rm -rf dist && pnpm run build:cjs && pnpm run build:esm && pnpm run build:types",
+    "build:cjs": "tsc -p tsconfig.cjs.json",
+    "build:esm": "tsc -p tsconfig.esm.json && echo '{\"type\": \"module\"}' > dist/esm/package.json",
+    "build:types": "tsc -p tsconfig.types.json",
+    "generate:ts": "node generate_ts_schema_types.js",
+    "generate:zod": "bash scripts/generate_models.sh",
+    "prepublishOnly": "pnpm run build"
+  },
+  "files": [
+    "dist",
+    "generated",
+    "spec",
+    "source",
+    "README.md"
+  ],
+  "dependencies": {
+    "json-schema-to-typescript": "catalog:",
+    "quicktype": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "typescript": "catalog:"
+  }
+}

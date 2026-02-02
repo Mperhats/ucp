@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ucp.dev/erc8004/schemas/types/registration.json",
+  "title": "ERC-8004 Agent Registration Reference",
+  "description": "On-chain registration reference for an ERC-8004 agent.",
+  "type": "object",
+  "required": ["agentId", "agentRegistry"],
+  "additionalProperties": false,
+  "properties": {
+    "agentId": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "agentRegistry": {
+      "type": "string",
+      "pattern": "^eip155:\\\\d+:0x[0-9a-fA-F]{40}$",
+      "description": "Registry identifier as namespace:chainId:address."
+    }
+  }
+}

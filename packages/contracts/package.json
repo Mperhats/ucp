@@ -1,0 +1,31 @@
+{
+  "name": "@ucp/contracts",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./generated": "./src/generated/index.ts",
+    "./generated/contracts": "./src/generated/contracts.ts",
+    "./generated/addresses": "./src/generated/addresses.ts",
+    ".": "./src/index.ts"
+  },
+  "types": "./src/index.ts",
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "check": "tsc -p tsconfig.json --noEmit",
+    "generate": "pnpm run generate:abis && pnpm run generate:addresses",
+    "generate:abis": "TSX_DISABLE_CACHE=1 node --import tsx scripts/generate-abis.ts",
+    "generate:addresses": "TSX_DISABLE_CACHE=1 node --import tsx scripts/generate-addresses.ts"
+  },
+  "dependencies": {
+    "abitype": "catalog:"
+  },
+  "devDependencies": {
+    "@ucp/config": "workspace:*",
+    "@types/node": "catalog:",
+    "tsx": "catalog:",
+    "typescript": "catalog:"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://localprotocol.xyz/schemas/restaurant/types/fulfillment_event.json",
+  "title": "Restaurant Fulfillment Event",
+  "description": "Append-only fulfillment event for restaurant pickup or on-demand delivery.",
+  "oneOf": [
+    { "$ref": "pickup_event.json" },
+    { "$ref": "../../delivery/types/delivery_event.json" }
+  ]
+}

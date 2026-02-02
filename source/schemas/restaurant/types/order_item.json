@@ -1,0 +1,10 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://localprotocol.xyz/schemas/restaurant/types/order_item.json",
+  "title": "Order Item",
+  "description": "Order-time item snapshot for menu items or modifier items.",
+  "oneOf": [
+    { "$ref": "item.json" },
+    { "$ref": "modifier_item.json" }
+  ]
+}

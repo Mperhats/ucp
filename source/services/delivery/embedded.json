@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://localprotocol.xyz/services/delivery/embedded.json",
+  "title": "Embedded Protocol",
+  "description": "Embedded Protocol (EP) methods for delivery capability. Methods are sent from Service to Host via postMessage/JSON-RPC 2.0.",
+  "delegations": [],
+  "methods": [
+    {
+      "name": "ed.delivery.change",
+      "summary": "Delivery changed",
+      "description": "Service notifies host that delivery status or details have changed.",
+      "params": [
+        {
+          "name": "delivery",
+          "required": true,
+          "schema": {
+            "$ref": "../../schemas/delivery/types/delivery.json",
+            "description": "Current delivery state."
+          }
+        }
+      ]
+    },
+    {
+      "name": "ed.delivery.event",
+      "summary": "Delivery event",
+      "description": "Service notifies host of a delivery lifecycle event.",
+      "params": [
+        {
+          "name": "event",
+          "required": true,
+          "schema": {
+            "$ref": "../../schemas/delivery/types/delivery_event.json",
+            "description": "Delivery lifecycle event payload."
+          }
+        }
+      ]
+    },
+    {
+      "name": "ed.delivery.quote_change",
+      "summary": "Quote changed",
+      "description": "Service notifies host that a delivery quote has changed or expired.",
+      "params": [
+        {
+          "name": "quote",
+          "required": true,
+          "schema": {
+            "$ref": "../../schemas/delivery/types/quote.json",
+            "description": "Updated quote details."
+          }
+        }
+      ]
+    }
+  ]
+}

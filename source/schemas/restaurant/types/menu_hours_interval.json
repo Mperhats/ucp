@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://localprotocol.xyz/schemas/restaurant/types/menu_hours_interval.json",
+  "title": "Menu Hours Interval",
+  "description": "A single menu availability interval for a day of the week.",
+  "type": "object",
+  "required": ["day", "from_hour", "from_minute", "to_hour", "to_minute"],
+  "properties": {
+    "day": {
+      "type": "string",
+      "description": "Day of week."
+    },
+    "from_hour": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 23,
+      "description": "Start hour (0-23)."
+    },
+    "from_minute": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 59,
+      "description": "Start minute (0-59)."
+    },
+    "to_hour": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 23,
+      "description": "End hour (0-23)."
+    },
+    "to_minute": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 59,
+      "description": "End minute (0-59)."
+    }
+  }
+}

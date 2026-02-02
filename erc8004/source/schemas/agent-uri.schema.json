@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ucp.dev/erc8004/schemas/agent-uri.schema.json",
+  "title": "ERC-8004 Agent Registration File",
+  "description": "Canonical agentURI registration JSON for ERC-8004 identity registry.",
+  "type": "object",
+  "required": ["type", "name", "description", "image", "endpoints", "active", "registrations"],
+  "additionalProperties": false,
+  "properties": {
+    "type": {
+      "type": "string",
+      "const": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "description": "Schema identifier for ERC-8004 registration."
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Agent display name."
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Human-readable description of the agent."
+    },
+    "image": {
+      "type": "string",
+      "format": "uri",
+      "description": "Image URL for ERC-721 compatibility."
+    },
+    "endpoints": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "types/endpoint.json" },
+      "contains": {
+        "type": "object",
+        "required": ["name", "endpoint"],
+        "properties": {
+          "name": {
+            "const": "UCP"
+          },
+          "endpoint": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "minContains": 1,
+      "description": "List of communication and discovery endpoints."
+    },
+    "x402Support": {
+      "type": "boolean",
+      "description": "Optional x402 support flag."
+    },
+    "active": {
+      "type": "boolean",
+      "description": "Whether the agent is active."
+    },
+    "registrations": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "types/registration.json" },
+      "description": "On-chain registrations for this agent."
+    },
+    "supportedTrust": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "description": "Supported trust models (optional)."
+    }
+  }
+}

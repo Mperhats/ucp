@@ -1,0 +1,109 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ucp.dev/erc8004/schemas/agent-uri.schema.json",
+  "title": "ERC-8004 Agent Registration File",
+  "description": "Canonical agentURI registration JSON for ERC-8004 identity registry.",
+  "type": "object",
+  "required": ["type", "name", "description", "image", "endpoints", "active", "registrations"],
+  "additionalProperties": false,
+  "properties": {
+    "type": {
+      "type": "string",
+      "const": "https://eips.ethereum.org/EIPS/eip-8004#registration-v1",
+      "description": "Schema identifier for ERC-8004 registration."
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Agent display name."
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Human-readable description of the agent."
+    },
+    "image": {
+      "type": "string",
+      "format": "uri",
+      "description": "Image URL for ERC-721 compatibility."
+    },
+    "endpoints": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/endpoint" },
+      "description": "List of communication and discovery endpoints."
+    },
+    "x402Support": {
+      "type": "boolean",
+      "description": "Optional x402 support flag."
+    },
+    "active": {
+      "type": "boolean",
+      "description": "Whether the agent is active."
+    },
+    "registrations": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/registration" },
+      "description": "On-chain registrations for this agent."
+    },
+    "supportedTrust": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "description": "Supported trust models (optional)."
+    }
+  },
+  "$defs": {
+    "endpoint": {
+      "type": "object",
+      "required": ["name", "endpoint"],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Endpoint name (e.g., web, A2A, MCP, UCP)."
+        },
+        "endpoint": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Endpoint URL or identifier."
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Optional endpoint version."
+        },
+        "capabilities": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "description": "Optional capabilities list (protocol-specific)."
+        },
+        "skills": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "domains": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "registration": {
+      "type": "object",
+      "required": ["agentId", "agentRegistry"],
+      "additionalProperties": false,
+      "properties": {
+        "agentId": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "agentRegistry": {
+          "type": "string",
+          "pattern": "^eip155:\\\\d+:0x[0-9a-fA-F]{40}$",
+          "description": "Registry identifier as namespace:chainId:address."
+        }
+      }
+    }
+  }
+}

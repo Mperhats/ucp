@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://localprotocol.xyz/schemas/delivery/types/quote.json",
+  "title": "Delivery Quote",
+  "description": "Quote details for an on-demand delivery request.",
+  "type": "object",
+  "required": ["quote_id"],
+  "properties": {
+    "quote_id": {
+      "type": "string",
+      "description": "Delivery quote identifier."
+    },
+    "expires_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Quote expiration timestamp."
+    },
+    "totals": {
+      "type": "array",
+      "items": { "$ref": "../../shopping/types/total.json" },
+      "description": "Quoted totals for the delivery."
+    }
+  }
+}

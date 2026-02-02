@@ -1,0 +1,38 @@
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "127.0.0.1:${POSTGRES_PORT}:5432"
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}",
+        ]
+      interval: 1s
+      timeout: 2s
+      retries: 30
+    networks:
+      - ucp
+
+  shovel:
+    image: ${SHOVEL_IMAGE}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ${SHOVEL_DIR}:/shovel
+    command: >
+      shovel -config /shovel/generated/ucp.local.json
+    restart: unless-stopped
+    networks:
+      - ucp
+
+networks:
+  ucp:
+    external: true
+    name: ucp

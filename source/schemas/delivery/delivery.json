@@ -1,0 +1,207 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://localprotocol.xyz/schemas/delivery/delivery.json",
+  "name": "xyz.localprotocol.delivery",
+  "version": "2026-01-19",
+  "title": "Delivery Capability",
+  "description": "Standalone delivery capability for pickup and on-demand delivery.",
+  "type": "object",
+  "$defs": {
+    "context": {
+      "allOf": [
+        { "$ref": "../shopping/types/context.json" }
+      ],
+      "description": "Location and market context for delivery operations."
+    },
+    "quote_request": {
+      "title": "Delivery Quote Request",
+      "description": "Inputs required to request an on-demand delivery quote.",
+      "type": "object",
+      "required": ["delivery_request"],
+      "properties": {
+        "context": {
+          "$ref": "#/$defs/context",
+          "description": "Context for the quote request. Platforms MAY infer from request, but provided fields MUST override."
+        },
+        "delivery_request": {
+          "$ref": "#/$defs/delivery_request",
+          "description": "Delivery request details used to generate a quote."
+        }
+      }
+    },
+    "quote": {
+      "$ref": "types/quote.json"
+    },
+    "quote_response": {
+      "title": "Delivery Quote Response",
+      "description": "Response containing quote details and UCP metadata.",
+      "type": "object",
+      "required": ["ucp", "quote"],
+      "properties": {
+        "ucp": {
+          "$ref": "../ucp.json#/$defs/response"
+        },
+        "quote": {
+          "$ref": "#/$defs/quote"
+        },
+        "messages": {
+          "type": "array",
+          "items": {
+            "$ref": "../shopping/types/message.json"
+          },
+          "description": "Errors, warnings, or informational messages about the quote."
+        }
+      }
+    },
+    "delivery_request": {
+      "$ref": "types/delivery_inputs.json"
+    },
+    "delivery_update_request": {
+      "title": "Delivery Update Request",
+      "description": "Patchable fields for updating an existing delivery.",
+      "type": "object",
+      "ucp_shared_request": true,
+      "minProperties": 1,
+      "properties": {
+        "pickup": {
+          "$ref": "../shopping/types/retail_location.json",
+          "description": "Updated pickup location."
+        },
+        "dropoff": {
+          "$ref": "../shopping/types/shipping_destination.json",
+          "description": "Updated dropoff location."
+        },
+        "pickup_ready_dt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "RFC 3339 timestamp when pickup can begin."
+        },
+        "pickup_deadline_dt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "RFC 3339 timestamp after which pickup is no longer valid."
+        },
+        "dropoff_ready_dt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "RFC 3339 timestamp when dropoff can begin."
+        },
+        "dropoff_deadline_dt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "RFC 3339 timestamp after which dropoff is no longer valid."
+        },
+        "items_value": {
+          "$ref": "../shopping/types/price.json",
+          "description": "Updated total value of items."
+        },
+        "external_store_id": {
+          "type": "string",
+          "description": "Optional store identifier for routing or pricing."
+        },
+        "external_id": {
+          "type": "string",
+          "description": "Optional external identifier for idempotency or correlation."
+        }
+      }
+    },
+    "delivery_list_response": {
+      "title": "Delivery List Response",
+      "description": "Paginated delivery list response with UCP metadata.",
+      "type": "object",
+      "required": ["ucp", "data"],
+      "properties": {
+        "ucp": {
+          "$ref": "../ucp.json#/$defs/response"
+        },
+        "data": {
+          "type": "array",
+          "description": "Deliveries matching the list query.",
+          "items": { "$ref": "types/delivery.json" }
+        },
+        "pagination": {
+          "$ref": "../shopping/types/pagination.json#/$defs/response",
+          "description": "Pagination information for list results."
+        },
+        "messages": {
+          "type": "array",
+          "items": {
+            "$ref": "../shopping/types/message.json"
+          },
+          "description": "Errors, warnings, or informational messages about the list results."
+        }
+      }
+    },
+    "delivery_response": {
+      "title": "Delivery Response",
+      "description": "Response containing delivery details and UCP metadata.",
+      "type": "object",
+      "required": ["ucp", "delivery"],
+      "properties": {
+        "ucp": {
+          "$ref": "../ucp.json#/$defs/response"
+        },
+        "delivery": {
+          "$ref": "types/delivery.json"
+        },
+        "messages": {
+          "type": "array",
+          "items": {
+            "$ref": "../shopping/types/message.json"
+          },
+          "description": "Errors, warnings, or informational messages about the delivery."
+        }
+      }
+    }
+  },
+  "embedded": {
+    "delegations": [],
+    "methods": [
+      {
+        "name": "ed.delivery.change",
+        "summary": "Delivery changed",
+        "description": "Service notifies host that delivery status or details have changed.",
+        "params": [
+          {
+            "name": "delivery",
+            "required": true,
+            "schema": {
+              "$ref": "types/delivery.json",
+              "description": "Current delivery state."
+            }
+          }
+        ]
+      },
+      {
+        "name": "ed.delivery.event",
+        "summary": "Delivery event",
+        "description": "Service notifies host of a delivery lifecycle event.",
+        "params": [
+          {
+            "name": "event",
+            "required": true,
+            "schema": {
+              "$ref": "types/delivery_event.json",
+              "description": "Delivery lifecycle event payload."
+            }
+          }
+        ]
+      },
+      {
+        "name": "ed.delivery.quote_change",
+        "summary": "Quote changed",
+        "description": "Service notifies host that a delivery quote has changed or expired.",
+        "params": [
+          {
+            "name": "quote",
+            "required": true,
+            "schema": {
+              "$ref": "#/$defs/quote",
+              "description": "Updated quote details."
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

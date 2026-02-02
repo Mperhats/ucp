@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://localprotocol.xyz/schemas/restaurant/types/context.json",
+  "title": "Restaurant Context",
+  "description": "Location and market context for restaurant operations.",
+  "allOf": [
+    {
+      "$ref": "../../shopping/types/context.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "intent": {
+          "type": "string",
+          "description": "Background context for semantic search (e.g., 'quick lunch nearby', 'family meal under $30')."
+        }
+      }
+    }
+  ]
+}

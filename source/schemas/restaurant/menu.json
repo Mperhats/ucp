@@ -1,0 +1,112 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://localprotocol.xyz/schemas/restaurant/menu.json",
+  "name": "xyz.localprotocol.restaurant.menu",
+  "version": "2026-01-11",
+  "title": "Menu Capability",
+  "description": "Menu discovery and configurable menu item definitions.",
+  "type": "object",
+  "$defs": {
+    "menu_item": {
+      "$ref": "types/menu_item.json"
+    },
+    "modifier_item": {
+      "$ref": "types/modifier_item.json"
+    },
+    "item": {
+      "oneOf": [
+        { "$ref": "types/item.json" },
+        { "$ref": "types/modifier_item.json" }
+      ],
+      "description": "Menu item or modifier item."
+    },
+    "category": {
+      "$ref": "types/category.json"
+    },
+    "menu": {
+      "$ref": "types/menu.json"
+    },
+    "modifier_group": {
+      "$ref": "types/modifier_group.json"
+    },
+    "media_map": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "../shopping/types/media.json"
+      },
+      "description": "Media assets keyed by media identifier."
+    },
+    "category_map": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/category"
+      },
+      "description": "Categories keyed by category identifier."
+    },
+    "menu_map": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/menu"
+      },
+      "description": "Menus keyed by menu identifier."
+    },
+    "item_map": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/item"
+      },
+      "description": "Items keyed by item identifier."
+    },
+    "modifier_group_map": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/modifier_group"
+      },
+      "description": "Modifier groups keyed by modifier group identifier."
+    },
+    "menu_data": {
+      "type": "object",
+      "required": ["media", "categories", "modifier_groups", "menus", "items"],
+      "properties": {
+        "media": {
+          "$ref": "#/$defs/media_map"
+        },
+        "categories": {
+          "$ref": "#/$defs/category_map"
+        },
+        "modifier_groups": {
+          "$ref": "#/$defs/modifier_group_map"
+        },
+        "menus": {
+          "$ref": "#/$defs/menu_map"
+        },
+        "items": {
+          "$ref": "#/$defs/item_map"
+        }
+      }
+    },
+    "context": {
+      "$ref": "types/context.json",
+      "description": "Location and market context for menu operations. Extends base context with 'intent' for semantic search."
+    },
+    "list_response": {
+      "type": "object",
+      "required": ["ucp"],
+      "properties": {
+        "ucp": {
+          "$ref": "../ucp.json#/$defs/response"
+        },
+        "messages": {
+          "type": "array",
+          "items": {
+            "$ref": "../shopping/types/message.json"
+          },
+          "description": "Errors, warnings, or informational messages about the menu."
+        }
+      },
+      "allOf": [
+        { "$ref": "#/$defs/menu_data" }
+      ]
+    }
+  }
+}

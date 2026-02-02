@@ -1,0 +1,140 @@
+{
+  "openrpc": "1.3.2",
+  "info": {
+    "title": "UCP Delivery Service",
+    "version": "2026-01-19",
+    "description": "Canonical MCP/JSON-RPC interface for UCP Delivery service. Schema references are logical pointers - actual payload shape is determined by negotiated capabilities.\n\n**Endpoint Resolution:** This spec defines methods only. The endpoint URL MUST be obtained from the delivery service's discovery profile at `/.well-known/ucp` under `services[\"xyz.localprotocol.delivery\"].mcp.endpoint`. The server entry below is a placeholder for tooling compatibility."
+  },
+  "servers": [
+    {
+      "name": "merchant",
+      "url": "{endpoint}",
+      "description": "Merchant-provided endpoint from UCP discovery profile",
+      "variables": {
+        "endpoint": {
+          "default": "https://merchant.example.com/ucp/mcp",
+          "description": "Obtain from /.well-known/ucp → services[\"xyz.localprotocol.delivery\"].mcp.endpoint"
+        }
+      }
+    }
+  ],
+  "methods": [
+    {
+      "name": "create_delivery_quote",
+      "summary": "Create a delivery quote",
+      "params": [
+        {
+          "name": "request",
+          "required": true,
+            "schema": { "$ref": "https://localprotocol.xyz/schemas/delivery/delivery.json#/$defs/quote_request" }
+        }
+      ],
+      "result": {
+        "name": "quote",
+        "schema": { "$ref": "https://localprotocol.xyz/schemas/delivery/delivery.json#/$defs/quote_response" }
+      }
+    },
+    {
+      "name": "create_delivery",
+      "summary": "Create a delivery",
+      "params": [
+        {
+          "name": "request",
+          "required": true,
+            "schema": { "$ref": "https://localprotocol.xyz/schemas/delivery/delivery.json#/$defs/delivery_request" }
+        }
+      ],
+      "result": {
+        "name": "delivery",
+        "schema": { "$ref": "https://localprotocol.xyz/schemas/delivery/delivery.json#/$defs/delivery_response" }
+      }
+    },
+    {
+      "name": "list_deliveries",
+      "summary": "List deliveries",
+      "params": [
+        {
+          "name": "status",
+          "required": false,
+          "schema": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "pickup",
+              "pickup_complete",
+              "dropoff",
+              "delivered",
+              "canceled",
+              "returned",
+              "ongoing"
+            ]
+          }
+        },
+        {
+          "name": "limit",
+          "required": false,
+          "schema": { "type": "integer", "minimum": 1 }
+        },
+        {
+          "name": "cursor",
+          "required": false,
+          "schema": { "type": "string" }
+        }
+      ],
+      "result": {
+        "name": "response",
+        "schema": { "$ref": "https://localprotocol.xyz/schemas/delivery/delivery.json#/$defs/delivery_list_response" }
+      }
+    },
+    {
+      "name": "get_delivery",
+      "summary": "Get delivery",
+      "params": [
+        {
+          "name": "id",
+          "required": true,
+          "schema": { "type": "string" }
+        }
+      ],
+      "result": {
+        "name": "delivery",
+        "schema": { "$ref": "https://localprotocol.xyz/schemas/delivery/delivery.json#/$defs/delivery_response" }
+      }
+    },
+    {
+      "name": "update_delivery",
+      "summary": "Update delivery",
+      "params": [
+        {
+          "name": "id",
+          "required": true,
+          "schema": { "type": "string" }
+        },
+        {
+          "name": "request",
+          "required": true,
+          "schema": { "$ref": "https://localprotocol.xyz/schemas/delivery/delivery.json#/$defs/delivery_update_request" }
+        }
+      ],
+      "result": {
+        "name": "delivery",
+        "schema": { "$ref": "https://localprotocol.xyz/schemas/delivery/delivery.json#/$defs/delivery_response" }
+      }
+    },
+    {
+      "name": "cancel_delivery",
+      "summary": "Cancel delivery",
+      "params": [
+        {
+          "name": "id",
+          "required": true,
+          "schema": { "type": "string" }
+        }
+      ],
+      "result": {
+        "name": "delivery",
+        "schema": { "$ref": "https://localprotocol.xyz/schemas/delivery/delivery.json#/$defs/delivery_response" }
+      }
+    }
+  ]
+}

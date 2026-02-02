@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://localprotocol.xyz/schemas/restaurant/types/fulfillment_method.json",
+  "title": "Restaurant Fulfillment Method",
+  "description": "A fulfillment method for pickup or on-demand delivery in restaurant checkout.",
+  "oneOf": [
+    {
+      "title": "Pickup Fulfillment Method",
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["id", "type"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique fulfillment method identifier.",
+          "ucp_request": {"create": "omit", "update": "required"}
+        },
+        "type": {
+          "const": "pickup",
+          "description": "Fulfillment method type.",
+          "ucp_request": {"create": "required", "update": "omit"}
+        },
+        "destinations": {
+          "type": "array",
+          "description": "Available pickup locations.",
+          "items": { "$ref": "../../shopping/types/retail_location.json" }
+        },
+        "selected_destination_id": {
+          "type": ["string", "null"],
+          "description": "ID of the selected destination."
+        }
+      },
+      "not": {
+        "required": ["delivery"]
+      }
+    },
+    {
+      "title": "On-Demand Delivery Fulfillment Method",
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["id", "type", "delivery"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique fulfillment method identifier.",
+          "ucp_request": {"create": "omit", "update": "required"}
+        },
+        "type": {
+          "const": "on_demand_delivery",
+          "description": "Fulfillment method type.",
+          "ucp_request": {"create": "required", "update": "omit"}
+        },
+        "delivery": {
+          "$ref": "../../delivery/types/delivery_inputs.json",
+          "description": "Required delivery inputs for on-demand delivery."
+        }
+      }
+    }
+  ]
+}

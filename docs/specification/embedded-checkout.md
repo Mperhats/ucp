@@ -1223,7 +1223,7 @@ rather than attempting to merge the new data with existing state.
 ### Address Format
 
 The address object uses the UCP
-[PostalAddress](site:specification/checkout/#postal-address) format:
+[PostalAddress](site:specification/shopping/checkout/#postal-address) format:
 
 {{ schema_fields('postal_address', 'embedded-checkout') }}
 
@@ -1322,14 +1322,14 @@ Checkout protocol and its extensions.
 The core object representing the current state of the transaction, including
 line items, totals, and buyer information.
 
-{{ schema_fields('checkout_resp', 'checkout') }}
+{{ schema_fields('checkout_resp', 'shopping/checkout') }}
 
 ### Order
 
 The object returned upon successful completion of a checkout, containing
 confirmation details.
 
-{{ schema_fields('order', 'order') }}
+{{ schema_fields('order', 'shopping/order') }}
 
 ### Payment
 
