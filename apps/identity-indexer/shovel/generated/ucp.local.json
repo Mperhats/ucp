@@ -1,0 +1,772 @@
+{
+  "dashboard": {},
+  "pg_url": "postgresql://postgres:postgres@postgres:5432/shovel",
+  "eth_sources": [
+    {
+      "name": "local",
+      "chain_id": 31337,
+      "url": "http://anvil:8545",
+      "urls": [
+        "http://anvil:8545"
+      ]
+    }
+  ],
+  "integrations": [
+    {
+      "name": "erc8004_identity_registry",
+      "enabled": true,
+      "sources": [
+        {
+          "name": "local",
+          "start": "0"
+        }
+      ],
+      "table": {
+        "name": "erc8004_identity_events",
+        "columns": [
+          {
+            "name": "chain_id",
+            "type": "int"
+          },
+          {
+            "name": "block_num",
+            "type": "numeric"
+          },
+          {
+            "name": "tx_hash",
+            "type": "bytea"
+          },
+          {
+            "name": "log_idx",
+            "type": "int"
+          },
+          {
+            "name": "registry",
+            "type": "bytea"
+          },
+          {
+            "name": "agent_id",
+            "type": "numeric"
+          },
+          {
+            "name": "agent_uri",
+            "type": "text"
+          },
+          {
+            "name": "owner",
+            "type": "bytea"
+          }
+        ]
+      },
+      "block": [
+        {
+          "name": "chain_id",
+          "column": "chain_id"
+        },
+        {
+          "name": "block_num",
+          "column": "block_num"
+        },
+        {
+          "name": "tx_hash",
+          "column": "tx_hash"
+        },
+        {
+          "name": "log_idx",
+          "column": "log_idx"
+        },
+        {
+          "name": "log_addr",
+          "column": "registry",
+          "filter_op": "contains",
+          "filter_arg": [
+            "0x5fbdb2315678afecb367f032d93f642f64180aa3"
+          ]
+        }
+      ],
+      "event": {
+        "type": "event",
+        "name": "Registered",
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "name": "agentId",
+            "type": "uint256",
+            "column": "agent_id"
+          },
+          {
+            "indexed": false,
+            "name": "agentURI",
+            "type": "string",
+            "column": "agent_uri"
+          },
+          {
+            "indexed": true,
+            "name": "owner",
+            "type": "address",
+            "column": "owner"
+          }
+        ]
+      }
+    },
+    {
+      "name": "erc8004_identity_uri_updated",
+      "enabled": true,
+      "sources": [
+        {
+          "name": "local",
+          "start": "0"
+        }
+      ],
+      "table": {
+        "name": "erc8004_identity_uri_events",
+        "columns": [
+          {
+            "name": "chain_id",
+            "type": "int"
+          },
+          {
+            "name": "block_num",
+            "type": "numeric"
+          },
+          {
+            "name": "tx_hash",
+            "type": "bytea"
+          },
+          {
+            "name": "log_idx",
+            "type": "int"
+          },
+          {
+            "name": "registry",
+            "type": "bytea"
+          },
+          {
+            "name": "agent_id",
+            "type": "numeric"
+          },
+          {
+            "name": "new_uri",
+            "type": "text"
+          },
+          {
+            "name": "updated_by",
+            "type": "bytea"
+          }
+        ]
+      },
+      "block": [
+        {
+          "name": "chain_id",
+          "column": "chain_id"
+        },
+        {
+          "name": "block_num",
+          "column": "block_num"
+        },
+        {
+          "name": "tx_hash",
+          "column": "tx_hash"
+        },
+        {
+          "name": "log_idx",
+          "column": "log_idx"
+        },
+        {
+          "name": "log_addr",
+          "column": "registry",
+          "filter_op": "contains",
+          "filter_arg": [
+            "0x5fbdb2315678afecb367f032d93f642f64180aa3"
+          ]
+        }
+      ],
+      "event": {
+        "type": "event",
+        "name": "URIUpdated",
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "name": "agentId",
+            "type": "uint256",
+            "column": "agent_id"
+          },
+          {
+            "indexed": false,
+            "name": "newURI",
+            "type": "string",
+            "column": "new_uri"
+          },
+          {
+            "indexed": true,
+            "name": "updatedBy",
+            "type": "address",
+            "column": "updated_by"
+          }
+        ]
+      }
+    },
+    {
+      "name": "erc8004_identity_wallet_set",
+      "enabled": true,
+      "sources": [
+        {
+          "name": "local",
+          "start": "0"
+        }
+      ],
+      "table": {
+        "name": "erc8004_identity_wallet_events",
+        "columns": [
+          {
+            "name": "chain_id",
+            "type": "int"
+          },
+          {
+            "name": "block_num",
+            "type": "numeric"
+          },
+          {
+            "name": "tx_hash",
+            "type": "bytea"
+          },
+          {
+            "name": "log_idx",
+            "type": "int"
+          },
+          {
+            "name": "registry",
+            "type": "bytea"
+          },
+          {
+            "name": "agent_id",
+            "type": "numeric"
+          },
+          {
+            "name": "new_wallet",
+            "type": "bytea"
+          },
+          {
+            "name": "set_by",
+            "type": "bytea"
+          }
+        ]
+      },
+      "block": [
+        {
+          "name": "chain_id",
+          "column": "chain_id"
+        },
+        {
+          "name": "block_num",
+          "column": "block_num"
+        },
+        {
+          "name": "tx_hash",
+          "column": "tx_hash"
+        },
+        {
+          "name": "log_idx",
+          "column": "log_idx"
+        },
+        {
+          "name": "log_addr",
+          "column": "registry",
+          "filter_op": "contains",
+          "filter_arg": [
+            "0x5fbdb2315678afecb367f032d93f642f64180aa3"
+          ]
+        }
+      ],
+      "event": {
+        "type": "event",
+        "name": "AgentWalletSet",
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "name": "agentId",
+            "type": "uint256",
+            "column": "agent_id"
+          },
+          {
+            "indexed": true,
+            "name": "newWallet",
+            "type": "address",
+            "column": "new_wallet"
+          },
+          {
+            "indexed": true,
+            "name": "setBy",
+            "type": "address",
+            "column": "set_by"
+          }
+        ]
+      }
+    },
+    {
+      "name": "erc8004_reputation_feedback_revoked",
+      "enabled": true,
+      "sources": [
+        {
+          "name": "local",
+          "start": "0"
+        }
+      ],
+      "table": {
+        "name": "erc8004_reputation_revoked_events",
+        "columns": [
+          {
+            "name": "chain_id",
+            "type": "int"
+          },
+          {
+            "name": "block_num",
+            "type": "numeric"
+          },
+          {
+            "name": "tx_hash",
+            "type": "bytea"
+          },
+          {
+            "name": "log_idx",
+            "type": "int"
+          },
+          {
+            "name": "registry",
+            "type": "bytea"
+          },
+          {
+            "name": "agent_id",
+            "type": "numeric"
+          },
+          {
+            "name": "client_address",
+            "type": "bytea"
+          },
+          {
+            "name": "feedback_index",
+            "type": "numeric"
+          }
+        ]
+      },
+      "block": [
+        {
+          "name": "chain_id",
+          "column": "chain_id"
+        },
+        {
+          "name": "block_num",
+          "column": "block_num"
+        },
+        {
+          "name": "tx_hash",
+          "column": "tx_hash"
+        },
+        {
+          "name": "log_idx",
+          "column": "log_idx"
+        },
+        {
+          "name": "log_addr",
+          "column": "registry",
+          "filter_op": "contains",
+          "filter_arg": [
+            "0xe7f1725e7734ce288f8367e1bb143e90bb3f0512"
+          ]
+        }
+      ],
+      "event": {
+        "type": "event",
+        "name": "FeedbackRevoked",
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "name": "agentId",
+            "type": "uint256",
+            "column": "agent_id"
+          },
+          {
+            "indexed": true,
+            "name": "clientAddress",
+            "type": "address",
+            "column": "client_address"
+          },
+          {
+            "indexed": true,
+            "name": "feedbackIndex",
+            "type": "uint64",
+            "column": "feedback_index"
+          }
+        ]
+      }
+    },
+    {
+      "name": "erc8004_reputation_response_appended",
+      "enabled": true,
+      "sources": [
+        {
+          "name": "local",
+          "start": "0"
+        }
+      ],
+      "table": {
+        "name": "erc8004_reputation_response_events",
+        "columns": [
+          {
+            "name": "chain_id",
+            "type": "int"
+          },
+          {
+            "name": "block_num",
+            "type": "numeric"
+          },
+          {
+            "name": "tx_hash",
+            "type": "bytea"
+          },
+          {
+            "name": "log_idx",
+            "type": "int"
+          },
+          {
+            "name": "registry",
+            "type": "bytea"
+          },
+          {
+            "name": "agent_id",
+            "type": "numeric"
+          },
+          {
+            "name": "client_address",
+            "type": "bytea"
+          },
+          {
+            "name": "feedback_index",
+            "type": "numeric"
+          },
+          {
+            "name": "responder",
+            "type": "bytea"
+          },
+          {
+            "name": "response_uri",
+            "type": "text"
+          }
+        ]
+      },
+      "block": [
+        {
+          "name": "chain_id",
+          "column": "chain_id"
+        },
+        {
+          "name": "block_num",
+          "column": "block_num"
+        },
+        {
+          "name": "tx_hash",
+          "column": "tx_hash"
+        },
+        {
+          "name": "log_idx",
+          "column": "log_idx"
+        },
+        {
+          "name": "log_addr",
+          "column": "registry",
+          "filter_op": "contains",
+          "filter_arg": [
+            "0xe7f1725e7734ce288f8367e1bb143e90bb3f0512"
+          ]
+        }
+      ],
+      "event": {
+        "type": "event",
+        "name": "ResponseAppended",
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "name": "agentId",
+            "type": "uint256",
+            "column": "agent_id"
+          },
+          {
+            "indexed": true,
+            "name": "clientAddress",
+            "type": "address",
+            "column": "client_address"
+          },
+          {
+            "indexed": false,
+            "name": "feedbackIndex",
+            "type": "uint64",
+            "column": "feedback_index"
+          },
+          {
+            "indexed": true,
+            "name": "responder",
+            "type": "address",
+            "column": "responder"
+          },
+          {
+            "indexed": false,
+            "name": "responseURI",
+            "type": "string",
+            "column": "response_uri"
+          }
+        ]
+      }
+    },
+    {
+      "name": "erc8004_validation_request",
+      "enabled": true,
+      "sources": [
+        {
+          "name": "local",
+          "start": "0"
+        }
+      ],
+      "table": {
+        "name": "erc8004_validation_request_events",
+        "columns": [
+          {
+            "name": "chain_id",
+            "type": "int"
+          },
+          {
+            "name": "block_num",
+            "type": "numeric"
+          },
+          {
+            "name": "tx_hash",
+            "type": "bytea"
+          },
+          {
+            "name": "log_idx",
+            "type": "int"
+          },
+          {
+            "name": "registry",
+            "type": "bytea"
+          },
+          {
+            "name": "validator_address",
+            "type": "bytea"
+          },
+          {
+            "name": "agent_id",
+            "type": "numeric"
+          },
+          {
+            "name": "request_uri",
+            "type": "text"
+          },
+          {
+            "name": "request_hash",
+            "type": "bytea"
+          }
+        ]
+      },
+      "block": [
+        {
+          "name": "chain_id",
+          "column": "chain_id"
+        },
+        {
+          "name": "block_num",
+          "column": "block_num"
+        },
+        {
+          "name": "tx_hash",
+          "column": "tx_hash"
+        },
+        {
+          "name": "log_idx",
+          "column": "log_idx"
+        },
+        {
+          "name": "log_addr",
+          "column": "registry",
+          "filter_op": "contains",
+          "filter_arg": [
+            "0x9fe46736679d2d9a65f0992f2272de9f3c7fa6e0"
+          ]
+        }
+      ],
+      "event": {
+        "type": "event",
+        "name": "ValidationRequest",
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "name": "validatorAddress",
+            "type": "address",
+            "column": "validator_address"
+          },
+          {
+            "indexed": true,
+            "name": "agentId",
+            "type": "uint256",
+            "column": "agent_id"
+          },
+          {
+            "indexed": false,
+            "name": "requestURI",
+            "type": "string",
+            "column": "request_uri"
+          },
+          {
+            "indexed": true,
+            "name": "requestHash",
+            "type": "bytes32",
+            "column": "request_hash"
+          }
+        ]
+      }
+    },
+    {
+      "name": "erc8004_validation_response",
+      "enabled": true,
+      "sources": [
+        {
+          "name": "local",
+          "start": "0"
+        }
+      ],
+      "table": {
+        "name": "erc8004_validation_response_events",
+        "columns": [
+          {
+            "name": "chain_id",
+            "type": "int"
+          },
+          {
+            "name": "block_num",
+            "type": "numeric"
+          },
+          {
+            "name": "tx_hash",
+            "type": "bytea"
+          },
+          {
+            "name": "log_idx",
+            "type": "int"
+          },
+          {
+            "name": "registry",
+            "type": "bytea"
+          },
+          {
+            "name": "validator_address",
+            "type": "bytea"
+          },
+          {
+            "name": "agent_id",
+            "type": "numeric"
+          },
+          {
+            "name": "request_hash",
+            "type": "bytea"
+          },
+          {
+            "name": "response",
+            "type": "numeric"
+          },
+          {
+            "name": "response_uri",
+            "type": "text"
+          },
+          {
+            "name": "response_hash",
+            "type": "bytea"
+          },
+          {
+            "name": "tag",
+            "type": "text"
+          }
+        ]
+      },
+      "block": [
+        {
+          "name": "chain_id",
+          "column": "chain_id"
+        },
+        {
+          "name": "block_num",
+          "column": "block_num"
+        },
+        {
+          "name": "tx_hash",
+          "column": "tx_hash"
+        },
+        {
+          "name": "log_idx",
+          "column": "log_idx"
+        },
+        {
+          "name": "log_addr",
+          "column": "registry",
+          "filter_op": "contains",
+          "filter_arg": [
+            "0x9fe46736679d2d9a65f0992f2272de9f3c7fa6e0"
+          ]
+        }
+      ],
+      "event": {
+        "type": "event",
+        "name": "ValidationResponse",
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "name": "validatorAddress",
+            "type": "address",
+            "column": "validator_address"
+          },
+          {
+            "indexed": true,
+            "name": "agentId",
+            "type": "uint256",
+            "column": "agent_id"
+          },
+          {
+            "indexed": true,
+            "name": "requestHash",
+            "type": "bytes32",
+            "column": "request_hash"
+          },
+          {
+            "indexed": false,
+            "name": "response",
+            "type": "uint8",
+            "column": "response"
+          },
+          {
+            "indexed": false,
+            "name": "responseURI",
+            "type": "string",
+            "column": "response_uri"
+          },
+          {
+            "indexed": false,
+            "name": "responseHash",
+            "type": "bytes32",
+            "column": "response_hash"
+          },
+          {
+            "indexed": false,
+            "name": "tag",
+            "type": "string",
+            "column": "tag"
+          }
+        ]
+      }
+    }
+  ]
+}
